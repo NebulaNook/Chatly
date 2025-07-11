@@ -1,8 +1,19 @@
 import express from 'express';
-import { sendMessage, getMessages } from '../controllers/messageController.js';
+import {
+  sendMessage,
+  getPrivateMessages,
+  getGroupMessages
+} from '../Controllers/MessageControllers.js';
+
 const router = express.Router();
 
+// POST /api/messages
 router.post('/', sendMessage);
-router.get('/:user1/:user2', getMessages);
+
+// GET /api/messages/private/:user1/:user2
+router.get('/private/:user1/:user2', getPrivateMessages);
+
+// GET /api/messages/group/:groupId
+router.get('/group/:groupId', getGroupMessages);
 
 export default router;

@@ -6,7 +6,11 @@ export default function MessageBubble({ message, isOwn }) {
           isOwn ? 'bg-blue-500 text-white' : 'bg-gray-200'
         }`}
       >
-        {message.text}
+        {message.type === 'image' ? (
+          <img src={message.text} alt="Sent media" className="rounded-lg w-52 object-cover" />
+        ) : (
+          <span>{message.text}</span>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { FiPhoneCall, FiVideo } from 'react-icons/fi';
-import { encryptMessage, decryptMessage } from '../../utils/crypto';
-import { socket } from '../../utils/socket';
+import { encryptMessage, decryptMessage } from '../../Utlis/crypto';
+import { socket } from '../../Utlis/Socket';
 import MessageBubble from './MessageBubble';
 import InputBox from './InputBox';
 
@@ -69,6 +69,28 @@ export default function ChatWindow({ currentUserId, selectedUser = null, selecte
 
     setMessages((prev) => [...prev, { ...message, text: input }]);
   };
+  
+  useEffect(() => {
+  const chatId = selectedGroup?._id || selectedUser?._id;
+  if (!chatId) return;
+
+  const fetchMessages = async () => {
+    try {
+      const res = await fetch(`/api/messages/${chatId}`);
+      const data = await res.json();
+      const decrypted = data.map(msg => ({
+        ...msg,
+        text: decryptMessage(msg.encryptedText),
+      }));
+      setMessages(decrypted);
+    } catch (err) {
+      console.error("Failed to load chat history", err);
+    }
+  };
+
+  fetchMessages();
+}, [selectedUser, selectedGroup]);
+
 
   return (
     <div className="flex flex-col flex-1 bg-gray-50">

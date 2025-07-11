@@ -1,0 +1,14 @@
+# Ignore all node_modules folders recursively
+node_modules/
+
+# Ignore all .env files recursively
+**/.env
+**/.env.*
+
+# Build outputs
+dist/
+build/
+
+# Editor and system files
+.vscode/
+.DS_Store

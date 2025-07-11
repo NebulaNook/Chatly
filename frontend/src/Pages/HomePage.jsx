@@ -1,5 +1,5 @@
-import Sidebar from "../Components/Sidebar";
-import ChatWindow from "../Components/ChatWindow";
+import Sidebar from "../Components/Chat/VideoCall/SideBar/SideBar";
+import ChatWindow from "../Components/Chat/ChatWindow";
 import ChatList from "../Components/ChatList";
 export default function ChatPage() {
   return (
